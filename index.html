@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Economia Circular - UNIFOR</title>
+</head>
+<body>
+    <header>
+         <!-- logo/nome do projeto + navegação -->
+        <h1>EcoCircular UNIFOR</h1>
+        <nav>
+            <ul>
+                <li><a href="#hero">inicio</a></li>
+                <li><a href="#vitrine">Vitrine</a></li>
+                <li><a href="#estatisticas">estatisticas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <!-- banner de apresentação + CTA -->
+            <h2>Dando uma nova vida aos itens do campus</h2>
+                <p>
+                    Um marketplace de economia circular para a comunidade UNIFOR 
+                    trocar, doar e vender itens — reduzindo desperdício e 
+                    conectando pessoas.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#anunciar" class="btn-btn-primary">Anunciar um item</a>
+                    <a href="#vitrine" class="btn-btn-secondary">Buscar itens</a>
+                </div>
+        </section>
+
+        <section id="estatisticas">
+            <!-- cards com números simulados -->
+             <h2>Nosso impacto no Campus</h2>
+             <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">248</span>
+                    <span class="stat-label">Itens anunciados</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">132</span>
+                    <span class="stat-label">Usuários ativos</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1.4</span>
+                    <span class="stat-label">toneladas de resíduos evitados</span>
+                </div>
+             </div>
+        </section>
+
+        <section id="vitrine">
+             <!-- filtros + cards de itens -->
+             <h2>Últimos itens anunciados</h2>
+             <div class="filtros">
+                <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
+                <button class="filtro-btn" data-categoria="livros">Livros</button>
+                <button class="filtro-btn" data-categoria="engenharia">Engenharia</button>
+                <button class="filtro-btn" data-categoria="computacao">Computação</button>
+             </div>
+
+             <div class="itens-grad">
+                <div class="item-card" data-categoria="livros">
+                    <img src="https://via.placeholder.com/200" alt="Livro de Calculo 1"/>
+                    <h3>Livro de Cálculo 1</h3>
+                    <p class="item-categoria">Livros</p>
+                    <p class="item-preco">Doacao</p>
+                </div>
+
+                <div class="item-card" data-categoria="engenharia">
+                    <img src="https://via.placeholder.com/200" alt="Capacete de segurança"/>
+                    <h3>Capacete de segurança</h3>
+                    <p class="item-categoria">Engenharia</p>
+                    <p class="item-preco">R$15,00</p>
+                </div>
+                <div class="item-card" data-categoria="computacao">
+                    <img src="https://via.placeholder.com/200" alt="Teclado mecânico usado">
+                    <h3>Teclado mecânico usado</h3>
+                    <p class="item-categoria">Computação</p>
+                    <p class="item-preco">R$ 40,00</p>
+                </div>
+             </div>
+        </section>
+
+        <section id="cta-final">
+            <h2>Faça parte dessa mudança</h2>
+            <p>Anuncie um item que não usa mais ou encontre algo que precisa — de forma simples e sustentável.</p>
+            <div class="cta-buttons">
+                <a href="#anunciar" class="btn btn-primary">Anunciar um item</a>
+                <a href="#vitrine" class="btn btn-secondary">Buscar itens</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- rodapé -->
+         <p>&copy; 2026 Marketplace Economia Circular - UNIFOR</p>
+         <p>Projeto desenvolvido para processo seletivo de estágio</p
+    </footer>
+</body>
+</html>
