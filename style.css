@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family:  'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #2e7d32;
+    color: white;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+header nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+header nav a {
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+header nav a:hover {
+    opacity: 0.7;
+}
+
+#hero {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #e8f5e9;
+}
+
+#hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2e7d32;
+}
+
+#hero p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    color: #555;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn-primary {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: white;
+    color: #2e7d32;
+    border: 2px solid #2e7d32;
+}
+
+#estatisticas {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+#estatisticas h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #2e7d32;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+.stat-label {
+    font-size: 1rem;
+    color: #666;
+}
+
+#vitrine {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#vitrine h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #2e7d32;
+}
+
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.filtro-btn {
+    padding: 10px 20px;
+    border: 2px solid #2e7d32;
+    border-radius: 20px;
+    background-color: white;
+    color: #2e7d32;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.filtro-btn:hover {
+    background-color: #e8f5e9;
+}
+.filtro-btn.ativo {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.itens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    text-align: left;
+}   
+
+.item-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.item-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.item-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.item-card h3 {
+    font-size: 1.1rem;
+    margin: 12px 15px 4px 15px;
+}
+
+.item-categoria {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0 15px;
+}
+
+.item-preco {
+    font-weight: 700;
+    color: #2e7d32;
+    margin: 8px 15px 15px 15px;
+}   
+
+#cta-final {
+    text-align: center;
+    padding: 70px 20px;
+    background-color: #2e7d32;
+    color: white;
+}
+
+#cta-final h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+#cta-final p {
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    opacity: 0.9;
+}
+
+#cta-final .btn-primary {
+    background-color: white;
+    color: #2e7d32;
+}
+
+#cta-final .btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #1b5e20;
+    color: white;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
