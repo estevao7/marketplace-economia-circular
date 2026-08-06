@@ -27,11 +27,37 @@ app.post('/anuncios', (req, res) => {
 });
 
 app.get('/anuncios', (req, res) => {
-    db.all('SELECT * FROM anuncios ORDER BY criadoEm DESC', [], (erro, linhas) => {
+    const { categoria } = req.query;
+
+    let sql = 'SELECT * FROM anuncios';
+    const parametros = [];
+
+    if (categoria) {
+        sql += ' WHERE categoria = ?';
+        parametros.push(categoria);
+    }
+
+    sql += ' ORDER BY criadoEm DESC';
+
+    db.all(sql, parametros, (erro, linhas) => {
         if (erro) {
             return res.status(500).json({ erro: 'Erro ao buscar anúncios.' });
         }
         res.json(linhas);
+    });
+});
+
+app.delete('/anuncios/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.run('DELETE FROM anuncios WHERE id = ?', [id], function (erro) {
+        if (erro) {
+            return res.status(500).json({ erro: 'Erro ao deletar anúncio.' });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ erro: 'Anúncio não encontrado.' });
+        }
+        res.json({ mensagem: 'Anúncio deletado com sucesso.' });
     });
 });
 
