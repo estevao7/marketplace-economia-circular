@@ -1,6 +1,22 @@
 const botoesFiltro = document.querySelectorAll('.filtro-btn');
 const itensCard = document.querySelectorAll('.item-card');
 
+async function buscarAnuncios(categoria = 'todos') {
+    let url = 'http://localhost:3000/anuncios';
+
+    if (categoria !== 'todos') {
+        url += `?categoria=${categoria}`;
+    }
+
+    try {
+        const resposta = await fetch(url);
+        const anuncios = await resposta.json();
+        renderizarAnuncios(anuncios);
+    } catch (erro) {
+        console.error('Erro ao buscar anúncios:', erro);
+    }
+}
+
 botoesFiltro.forEach(botao => {
     botao.addEventListener('click', () => {
         const categoriaEscolhida = botao.dataset.categoria;
@@ -8,12 +24,33 @@ botoesFiltro.forEach(botao => {
         botoesFiltro.forEach(b => b.classList.remove('ativo'));
         botao.classList.add('ativo');
 
-        itensCard.forEach(item => {
-             if (categoriaEscolhida === 'todos' || item.dataset.categoria === categoriaEscolhida) {
-                item.style.display = 'block';
-             } else {
-                item.style.display = 'none';
-             }
-        });
+        buscarAnuncios(categoriaEscolhida);
     });
 });
+
+function renderizarAnuncios(anuncios) {
+    const container = document.getElementById('itens-grid');
+    container.innerHTML = '';
+
+    if (anuncios.length === 0) {
+        container.innerHTML = '<p>Nenhum anúncio encontrado.</p>';
+        return;
+    }
+
+    anuncios.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('item-card');
+        card.dataset.categoria = item.categoria;
+
+        card.innerHTML = `
+            <img src="${item.imagemUrl}" alt="${item.titulo}">
+            <h3>${item.titulo}</h3>
+            <p class="item-categoria">${item.categoria}</p>
+            <p class="item-preco">${item.preco === 'Doação' ? 'Doação' : `R$ ${item.preco}`}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+buscarAnuncios();

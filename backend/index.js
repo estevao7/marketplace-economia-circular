@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const db = require('./database');
 const PORTA = 3000;
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.json({ mensagem: 'API do Marketplace Economia Circular funcionando!' });
