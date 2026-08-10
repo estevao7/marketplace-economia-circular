@@ -13,31 +13,41 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 app.post('/anuncios', (req, res) => {
-    const { titulo, descricao, categoria, preco, imagemUrl } = req.body;
+    const { titulo, descricao, categoria, preco, imagemUrl, idUsuario } = req.body;
 
     if (!titulo || !categoria) {
         return res.status(400).json({ erro: 'Título e categoria são obrigatórios.' });
     }
 
-    const sql = `INSERT INTO anuncios (titulo, descricao, categoria, preco, imagemUrl) VALUES (?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO anuncios (titulo, descricao, categoria, preco, imagemUrl, idUsuario) VALUES (?, ?, ?, ?, ?, ?)`;
 
-    db.run(sql, [titulo, descricao, categoria, preco, imagemUrl], function (erro) {
+    db.run(sql, [titulo, descricao, categoria, preco, imagemUrl, idUsuario], function (erro) {
         if (erro) {
             return res.status(500).json({ erro: 'Erro ao criar anúncio.' });
         }
-        res.status(201).json({ id: this.lastID, titulo, descricao, categoria, preco, imagemUrl });
+        res.status(201).json({ id: this.lastID, titulo, descricao, categoria, preco, imagemUrl, idUsuario });
     });
 });
 
 app.get('/anuncios', (req, res) => {
-    const { categoria } = req.query;
+    const { categoria, idUsuario } = req.query;
 
     let sql = 'SELECT * FROM anuncios';
+    const condicoes = [];
     const parametros = [];
 
     if (categoria) {
-        sql += ' WHERE categoria = ?';
+        condicoes.push('categoria = ?');
         parametros.push(categoria);
+    }
+
+    if (idUsuario) {
+        condicoes.push('idUsuario = ?');
+        parametros.push(idUsuario);
+    }
+
+    if (condicoes.length > 0) {
+        sql += ' WHERE ' + condicoes.join(' AND ');
     }
 
     sql += ' ORDER BY criadoEm DESC';

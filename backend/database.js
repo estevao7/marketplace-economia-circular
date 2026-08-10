@@ -16,6 +16,7 @@ db.run(`
         categoria TEXT NOT NULL,
         preco TEXT,
         imagemUrl TEXT,
+        idUsuario TEXT,
         criadoEm DATETIME DEFAULT CURRENT_TIMESTAMP
     )
 `);
