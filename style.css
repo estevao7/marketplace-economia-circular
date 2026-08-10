@@ -247,3 +247,67 @@ footer {
 footer p {
     margin-bottom: 5px;
 }
+
+#form-anuncio {
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+#form-anuncio h2 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 30px;
+}
+
+.campo {
+    margin-bottom: 20px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #333;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#form-anuncio button[type="submit"] {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+#meus-anuncios {
+    padding: 40px 20px 60px 20px;
+    text-align: center;
+}
+
+#meus-anuncios h2 {
+    color: #2e7d32;
+    margin-bottom: 30px;
+}

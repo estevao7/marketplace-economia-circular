@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anunciar Item - Marketplace Economia Circular</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>EcoCircular UNIFOR</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="anunciar.html">Anunciar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="form-anuncio">
+            <h2>Anuncie um item</h2>
+            <form id="formulario-anuncio">
+                <div class="campo">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" name="descricao"></textarea>
+                </div>
+
+                <div class="campo">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" name="categoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="livros">Livros</option>
+                        <option value="engenharia">Engenharia</option>
+                        <option value="computacao">Computação</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="preco">Preço (ou "Doação")</label>
+                    <input type="text" id="preco" name="preco" placeholder="Ex: 20.00 ou Doação">
+                </div>
+
+                <div class="campo">
+                    <label for="imagemUrl">URL da imagem</label>
+                    <input type="text" id="imagemUrl" name="imagemUrl" placeholder="https://...">
+                </div>
+
+                <button type="submit" class="btn-primary">Publicar anúncio</button>
+            </form>
+        </section>
+
+        <section id="meus-anuncios">
+            <h2>Meus anúncios</h2>
+            <div class="itens-grid" id="meus-itens-grid">
+                <!-- anúncios do usuário aparecem aqui via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Marketplace Economia Circular - UNIFOR</p>
+        <p>Projeto desenvolvido para processo seletivo de estágio</p>
+    </footer>
+
+    <script src="anunciar.js"></script>
+</body>
+</html>
