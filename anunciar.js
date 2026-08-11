@@ -1,3 +1,5 @@
+const API_URL = 'https://marketplace-economia-circular.onrender.com';
+
 function obterIdUsuario() {
     let idUsuario = localStorage.getItem('idUsuario');
 
@@ -27,7 +29,7 @@ formulario.addEventListener('submit', async (evento) => {
     };
 
     try {
-        const resposta = await fetch('http://localhost:3000/anuncios', {
+        const resposta = await fetch(`${API_URL}/anuncios`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -53,7 +55,7 @@ async function carregarMeusAnuncios() {
     const container = document.getElementById('meus-itens-grid');
 
     try {
-        const resposta = await fetch(`http://localhost:3000/anuncios?idUsuario=${idUsuario}`);
+        const resposta = await fetch(`${API_URL}/anuncios?idUsuario=${idUsuario}`);
         const anuncios = await resposta.json();
 
         container.innerHTML = '';

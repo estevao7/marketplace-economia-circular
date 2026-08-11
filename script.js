@@ -1,8 +1,9 @@
 const botoesFiltro = document.querySelectorAll('.filtro-btn');
 const itensCard = document.querySelectorAll('.item-card');
+const API_URL = 'https://marketplace-economia-circular.onrender.com';
 
 async function buscarAnuncios(categoria = 'todos') {
-    let url = 'http://localhost:3000/anuncios';
+    let url = `${API_URL}/anuncios`;
 
     if (categoria !== 'todos') {
         url += `?categoria=${categoria}`;
