@@ -1,16 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const db = require('./database');
+const { anuncios, proximoId } = require('./database');
 const PORTA = process.env.PORT || 3000;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.json({ mensagem: 'API do Marketplace Economia Circular funcionando!' });
 });
-
-app.use(express.json());
 
 app.post('/anuncios', (req, res) => {
     const { titulo, descricao, categoria, preco, imagemUrl, idUsuario } = req.body;
@@ -19,61 +18,40 @@ app.post('/anuncios', (req, res) => {
         return res.status(400).json({ erro: 'Título e categoria são obrigatórios.' });
     }
 
-    try {
-        const sql = `INSERT INTO anuncios (titulo, descricao, categoria, preco, imagemUrl, idUsuario) VALUES (?, ?, ?, ?, ?, ?)`;
-        const resultado = db.prepare(sql).run(titulo, descricao, categoria, preco, imagemUrl, idUsuario);
+    const novoAnuncio = {
+        id: proximoId(),
+        titulo, descricao, categoria, preco, imagemUrl, idUsuario,
+        criadoEm: new Date().toISOString()
+    };
 
-        res.status(201).json({ id: resultado.lastInsertRowid, titulo, descricao, categoria, preco, imagemUrl, idUsuario });
-    } catch (erro) {
-        res.status(500).json({ erro: 'Erro ao criar anúncio.' });
-    }
+    anuncios.unshift(novoAnuncio);
+    res.status(201).json(novoAnuncio);
 });
 
 app.get('/anuncios', (req, res) => {
     const { categoria, idUsuario } = req.query;
-
-    let sql = 'SELECT * FROM anuncios';
-    const condicoes = [];
-    const parametros = [];
+    let resultado = anuncios;
 
     if (categoria) {
-        condicoes.push('categoria = ?');
-        parametros.push(categoria);
+        resultado = resultado.filter(a => a.categoria === categoria);
     }
-
     if (idUsuario) {
-        condicoes.push('idUsuario = ?');
-        parametros.push(idUsuario);
+        resultado = resultado.filter(a => a.idUsuario === idUsuario);
     }
 
-    if (condicoes.length > 0) {
-        sql += ' WHERE ' + condicoes.join(' AND ');
-    }
-
-    sql += ' ORDER BY criadoEm DESC';
-
-    try {
-        const linhas = db.prepare(sql).all(...parametros);
-        res.json(linhas);
-    } catch (erro) {
-        res.status(500).json({ erro: 'Erro ao buscar anúncios.' });
-    }
+    res.json(resultado);
 });
 
 app.delete('/anuncios/:id', (req, res) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id);
+    const index = anuncios.findIndex(a => a.id === id);
 
-    try {
-        const resultado = db.prepare('DELETE FROM anuncios WHERE id = ?').run(id);
-
-        if (resultado.changes === 0) {
-            return res.status(404).json({ erro: 'Anúncio não encontrado.' });
-        }
-
-        res.json({ mensagem: 'Anúncio deletado com sucesso.' });
-    } catch (erro) {
-        res.status(500).json({ erro: 'Erro ao deletar anúncio.' });
+    if (index === -1) {
+        return res.status(404).json({ erro: 'Anúncio não encontrado.' });
     }
+
+    anuncios.splice(index, 1);
+    res.json({ mensagem: 'Anúncio deletado com sucesso.' });
 });
 
 app.listen(PORTA, () => {
