@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const db = require('./database');
-const PORTA = 3000;
+const PORTA = process.env.PORT || 3000;
 
 app.use(cors());
 
@@ -19,14 +19,14 @@ app.post('/anuncios', (req, res) => {
         return res.status(400).json({ erro: 'Título e categoria são obrigatórios.' });
     }
 
-    const sql = `INSERT INTO anuncios (titulo, descricao, categoria, preco, imagemUrl, idUsuario) VALUES (?, ?, ?, ?, ?, ?)`;
+    try {
+        const sql = `INSERT INTO anuncios (titulo, descricao, categoria, preco, imagemUrl, idUsuario) VALUES (?, ?, ?, ?, ?, ?)`;
+        const resultado = db.prepare(sql).run(titulo, descricao, categoria, preco, imagemUrl, idUsuario);
 
-    db.run(sql, [titulo, descricao, categoria, preco, imagemUrl, idUsuario], function (erro) {
-        if (erro) {
-            return res.status(500).json({ erro: 'Erro ao criar anúncio.' });
-        }
-        res.status(201).json({ id: this.lastID, titulo, descricao, categoria, preco, imagemUrl, idUsuario });
-    });
+        res.status(201).json({ id: resultado.lastInsertRowid, titulo, descricao, categoria, preco, imagemUrl, idUsuario });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao criar anúncio.' });
+    }
 });
 
 app.get('/anuncios', (req, res) => {
@@ -52,26 +52,28 @@ app.get('/anuncios', (req, res) => {
 
     sql += ' ORDER BY criadoEm DESC';
 
-    db.all(sql, parametros, (erro, linhas) => {
-        if (erro) {
-            return res.status(500).json({ erro: 'Erro ao buscar anúncios.' });
-        }
+    try {
+        const linhas = db.prepare(sql).all(...parametros);
         res.json(linhas);
-    });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao buscar anúncios.' });
+    }
 });
 
 app.delete('/anuncios/:id', (req, res) => {
     const { id } = req.params;
 
-    db.run('DELETE FROM anuncios WHERE id = ?', [id], function (erro) {
-        if (erro) {
-            return res.status(500).json({ erro: 'Erro ao deletar anúncio.' });
-        }
-        if (this.changes === 0) {
+    try {
+        const resultado = db.prepare('DELETE FROM anuncios WHERE id = ?').run(id);
+
+        if (resultado.changes === 0) {
             return res.status(404).json({ erro: 'Anúncio não encontrado.' });
         }
+
         res.json({ mensagem: 'Anúncio deletado com sucesso.' });
-    });
+    } catch (erro) {
+        res.status(500).json({ erro: 'Erro ao deletar anúncio.' });
+    }
 });
 
 app.listen(PORTA, () => {
